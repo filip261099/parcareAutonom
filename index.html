@@ -346,6 +346,10 @@
       <input id="ret" type="checkbox" style="width:16px; height:16px; margin:0">
       Doar în tabel – trebuie să se întoarcă
     </label>
+    <label for="eta" style="display:flex; align-items:center; gap:8px; padding-left:24px; font-size:12px; color:#4a4f55">
+      Ora estimată de sosire
+      <input id="eta" type="time" style="height:28px; border:1px solid #b9bec4; border-radius:5px; padding:0 6px; font-size:13px">
+    </label>
     <div id="msg" style="font-size:12px; color:#a3401a; min-height:0"></div>
   </form>
   <div role="table" aria-label="Locuri Autonom">
@@ -372,10 +376,10 @@
 
 <script>
 (function () {
-  var KEY = 'parcare-oradea-autonom-v1';
+  var KEY = 'parcare-oradea-autonom-v2';
   var XS = [489, 553, 617, 681, 745];
   var COLORS = ['#f2f3f4', '#c4c9ce', '#f2f3f4', '#4b5157', '#f2f3f4'];
-  var DEFAULT = [{ plate: 'B127RXN', rfr: true }, { plate: 'B452ATL', rfr: false }, { plate: 'B302TOM', ret: true }, null, null];
+  var DEFAULT = [{ plate: 'B127RXN', rfr: true }, { plate: 'B452ATL', ret: true, eta: '15:00' }, { plate: 'B302TOM', ret: true }, null, null];
   var slots, sel = -1;
 
   function load() {
@@ -420,7 +424,7 @@
     slots.forEach(function (c, i) {
       var plateColor = !c ? '#8a8f94' : (c.ret ? '#1f5fae' : '#1d2126');
       r += '<div role="row" class="row"><span style="font-weight:600; color:#1f6f66">A' + (i + 1) + '</span>' +
-        '<span class="cond" style="font-size:16px; letter-spacing:.5px; color:' + plateColor + '">' + (c ? esc(c.plate) : 'liber') + '</span><span>';
+        '<span class="cond" style="font-size:16px; letter-spacing:.5px; color:' + plateColor + '">' + (c ? esc(c.plate) + (c.ret && c.eta ? ' <span style="font-size:13px">· ~' + esc(c.eta) + '</span>' : '') : 'liber') + '</span><span>';
       if (c) {
         var bg = c.ret ? '#1f5fae' : (c.rfr ? '#1f7a43' : '#b5541a');
         var lbl = c.ret ? 'REVINE' : (c.rfr ? 'DA' : 'NU');
@@ -446,8 +450,8 @@
     if (slots.some(function (c) { return c && c.plate === p; })) return msg(p + ' este deja în listă.');
     var i = slots.indexOf(null);
     if (i < 0) return msg('Toate cele 5 locuri Autonom sunt ocupate.');
-    slots[i] = document.getElementById('ret').checked ? { plate: p, ret: true } : { plate: p, rfr: document.getElementById('rfr').checked };
-    input.value = ''; msg(''); save(); render(); input.focus();
+    slots[i] = document.getElementById('ret').checked ? { plate: p, ret: true, eta: document.getElementById('eta').value || '' } : { plate: p, rfr: document.getElementById('rfr').checked };
+    input.value = ''; document.getElementById('eta').value = ''; msg(''); save(); render(); input.focus();
   });
 
   document.getElementById('stage').addEventListener('click', function (e) {
