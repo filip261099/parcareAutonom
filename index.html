@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parcare Aeroport Oradea · Autonom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; background: #7f9466; }
+  body { font-family: 'Barlow', sans-serif; color: #1d2126; display: flex; align-items: center; justify-content: center; overflow: auto; }
+  #fit { position: relative; }
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; background: #9fb383; overflow: hidden; }
+  #stage > svg { display: block; }
+  .cond { font-family: 'Barlow Condensed', sans-serif; }
+  .car { position: absolute; top: 631px; width: 46px; height: 98px; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; }
+  .car:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .reserved { position: absolute; top: 625px; width: 56px; height: 110px; box-sizing: border-box; border: 3px dashed #4f8fe0; border-radius: 4px; background: rgba(31,95,174,0.25); pointer-events: none; }
+  .pop { position: absolute; top: 506px; width: 190px; box-sizing: border-box; padding: 10px 12px; background: #fffdf8; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.3); display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+  .pill { padding: 2px 8px; border-radius: 10px; color: #fff; font-weight: 600; font-size: 12px; }
+  .x { width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer; font-size: 18px; line-height: 1; color: #555b61; }
+  #panel { position: absolute; left: 1604px; top: 14px; width: 302px; box-sizing: border-box; padding: 14px 16px; background: #fffdf8; border-radius: 8px; box-shadow: 0 8px 22px rgba(0,0,0,.28); display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+  #panel h2 { margin: 0; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: .5px; }
+  #plate { flex: 1; min-width: 0; height: 36px; box-sizing: border-box; padding: 0 10px; border: 1px solid #b9bec4; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; }
+  #addBtn { height: 36px; padding: 0 14px; border: 0; border-radius: 5px; background: #1f6f66; color: #fff; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .row { display: grid; grid-template-columns: 34px 1fr 64px 28px; align-items: center; gap: 6px; min-height: 32px; border-top: 1px solid #e4e1d8; }
+  .row.head { border-top: 0; min-height: 0; padding: 4px 0; color: #4a4f55; font-size: 11px; font-weight: 600; letter-spacing: .5px; }
+  .rfrBtn { min-width: 40px; height: 24px; padding: 0 8px; border: 0; border-radius: 12px; color: #fff; font-weight: 600; font-size: 11px; cursor: pointer; }
+  #legend { position: absolute; left: 70px; bottom: 16px; width: 700px; box-sizing: border-box; padding: 14px 22px; background: #f6f4ee; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.22); display: flex; align-items: center; gap: 22px; }
+  .sw { width: 18px; height: 12px; display: inline-block; }
+</style>
+</head>
+<body>
+<div id="fit">
+<div id="stage">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-label="Vedere aeriană a parcării Aeroportului Oradea: zona rent a car în stânga pe două rânduri, 5 locuri Autonom, trotuar în dreapta lor și 2 locuri pentru mașini electrice vizavi" style="display: block">
+<defs>
+<symbol id="car" viewBox="0 0 34 72" width="34" height="72" overflow="visible">
+<rect x="3" y="4" width="32" height="70" rx="9" fill="#000" opacity="0.28"></rect>
+<rect x="1" y="1" width="32" height="70" rx="9" fill="currentColor"></rect>
+<rect x="1" y="1" width="32" height="70" rx="9" fill="none" stroke="#000" stroke-opacity="0.25" stroke-width="1"></rect>
+<rect x="-1.5" y="19" width="4" height="5" rx="1.5" fill="currentColor" stroke="#000" stroke-opacity="0.3" stroke-width="0.6"></rect>
+<rect x="31.5" y="19" width="4" height="5" rx="1.5" fill="currentColor" stroke="#000" stroke-opacity="0.3" stroke-width="0.6"></rect>
+<path d="M5 26 Q17 14 29 26 L27 31 Q17 27 7 31 Z" fill="#1c2630" opacity="0.88"></path>
+<rect x="7" y="31" width="20" height="21" rx="3" fill="#fff" opacity="0.14"></rect>
+<path d="M7 52 Q17 55 27 52 L28 59 Q17 63 6 59 Z" fill="#1c2630" opacity="0.85"></path>
+<rect x="4" y="2.5" width="6" height="2.5" rx="1.2" fill="#fff6d8"></rect>
+<rect x="24" y="2.5" width="6" height="2.5" rx="1.2" fill="#fff6d8"></rect>
+<rect x="4" y="67.5" width="6" height="2.2" rx="1" fill="#c0262d"></rect>
+<rect x="24" y="67.5" width="6" height="2.2" rx="1" fill="#c0262d"></rect>
+</symbol>
+<symbol id="carD" viewBox="0 0 34 72" width="34" height="72" overflow="visible">
+<use href="#car" transform="rotate(180 17 36)"></use>
+</symbol>
+<symbol id="tree" viewBox="-20 -20 40 40" width="40" height="40" overflow="visible">
+<circle cx="4" cy="5" r="16" fill="#3c4a2c" opacity="0.35"></circle>
+<circle cx="0" cy="0" r="16" fill="#5d7a3e"></circle>
+<circle cx="-4" cy="-4" r="9" fill="#77944f"></circle>
+</symbol>
+<pattern id="stallA" x="160" y="0" width="64" height="120" patternUnits="userSpaceOnUse">
+<rect x="0" y="0" width="3" height="120" fill="#e9ebe6"></rect>
+</pattern>
+<pattern id="stallA2" x="870" y="0" width="64" height="120" patternUnits="userSpaceOnUse">
+<rect x="0" y="0" width="3" height="120" fill="#e9ebe6"></rect>
+</pattern>
+<pattern id="stallG" x="1064" y="0" width="64" height="120" patternUnits="userSpaceOnUse">
+<rect x="0" y="0" width="3" height="120" fill="#e9ebe6"></rect>
+</pattern>
+<pattern id="stallR" x="160" y="0" width="64" height="120" patternUnits="userSpaceOnUse">
+<rect x="0" y="0" width="3.5" height="120" fill="#E8772E"></rect>
+</pattern>
+<pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
+<rect width="6" height="6" fill="#4b5056"></rect>
+<circle cx="1" cy="2" r="0.6" fill="#555b61"></circle>
+<circle cx="4" cy="5" r="0.5" fill="#43474c"></circle>
+</pattern>
+<pattern id="paving" width="20" height="20" patternUnits="userSpaceOnUse">
+<rect width="20" height="20" fill="#d9d4c8"></rect>
+<rect width="20" height="1" fill="#c4bead"></rect>
+<rect width="1" height="20" fill="#c4bead"></rect>
+</pattern>
+<pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+<rect width="12" height="12" fill="#2E9C8F" opacity="0.22"></rect>
+<rect width="4" height="12" fill="#2E9C8F" opacity="0.35"></rect>
+</pattern>
+</defs>
+
+<!-- apron -->
+<rect x="0" y="0" width="1920" height="44" fill="#c9cbc6"></rect>
+<rect x="0" y="40" width="1920" height="4" fill="#b3b6b0"></rect>
+<rect x="40" y="18" width="1840" height="3" fill="#e3c34a"></rect>
+
+<!-- control tower -->
+<circle cx="160" cy="125" r="44" fill="#000" opacity="0.18"></circle>
+<circle cx="154" cy="118" r="44" fill="#b9bcbf"></circle>
+<circle cx="154" cy="118" r="32" fill="#2c3a46"></circle>
+<circle cx="154" cy="118" r="22" fill="#d3d6d8"></circle>
+<circle cx="154" cy="118" r="5" fill="#9aa0a5"></circle>
+
+<!-- terminal -->
+<rect x="268" y="58" width="1080" height="146" fill="#000" opacity="0.2"></rect>
+<rect x="260" y="50" width="1080" height="146" fill="#d6d9db"></rect>
+<rect x="260" y="50" width="1080" height="146" fill="none" stroke="#a9aeb2" stroke-width="4"></rect>
+<g fill="#9fb4c4" opacity="0.9">
+<rect x="330" y="76" width="140" height="18"></rect>
+<rect x="330" y="104" width="140" height="18"></rect>
+<rect x="330" y="132" width="140" height="18"></rect>
+<rect x="1130" y="76" width="140" height="18"></rect>
+<rect x="1130" y="104" width="140" height="18"></rect>
+<rect x="1130" y="132" width="140" height="18"></rect>
+</g>
+<rect x="540" y="70" width="520" height="104" fill="#c6cacd"></rect>
+<g fill="#8796a2">
+<rect x="560" y="84" width="40" height="28" rx="2"></rect>
+<rect x="612" y="84" width="40" height="28" rx="2"></rect>
+<rect x="664" y="84" width="40" height="28" rx="2"></rect>
+<rect x="900" y="130" width="60" height="30" rx="2"></rect>
+<rect x="972" y="130" width="60" height="30" rx="2"></rect>
+</g>
+<g fill="#6b747c"><circle cx="580" cy="98" r="9"></circle><circle cx="632" cy="98" r="9"></circle><circle cx="684" cy="98" r="9"></circle></g>
+<text x="800" y="134" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="30" letter-spacing="8" fill="#7b8389">TERMINAL SOSIRI</text>
+
+<!-- canopy + sidewalk -->
+<rect x="200" y="196" width="1200" height="38" fill="#d9d4c8"></rect>
+<rect x="420" y="196" width="760" height="26" fill="#8fb1c7" opacity="0.85"></rect>
+<g stroke="#6f8ea3" stroke-width="2"><line x1="500" y1="196" x2="500" y2="222"></line><line x1="580" y1="196" x2="580" y2="222"></line><line x1="660" y1="196" x2="660" y2="222"></line><line x1="740" y1="196" x2="740" y2="222"></line><line x1="820" y1="196" x2="820" y2="222"></line><line x1="900" y1="196" x2="900" y2="222"></line><line x1="980" y1="196" x2="980" y2="222"></line><line x1="1060" y1="196" x2="1060" y2="222"></line><line x1="1140" y1="196" x2="1140" y2="222"></line></g>
+
+<!-- road -->
+<rect x="0" y="234" width="1920" height="92" fill="url(#grain)"></rect>
+<rect x="0" y="238" width="1920" height="2" fill="#e9ebe6"></rect>
+<rect x="0" y="320" width="1920" height="2" fill="#e9ebe6"></rect>
+<line x1="0" y1="280" x2="1920" y2="280" stroke="#e9ebe6" stroke-width="2.5" stroke-dasharray="26 18"></line>
+<g fill="#e9ebe6"><rect x="806" y="240" width="8" height="80"></rect><rect x="822" y="240" width="8" height="80"></rect><rect x="838" y="240" width="8" height="80"></rect><rect x="854" y="240" width="8" height="80"></rect></g>
+<use href="#car" transform="translate(470 258) rotate(-90)" x="-20" y="-42" width="40" height="85" style="color:#e2b12f"></use>
+<use href="#car" transform="translate(1100 258) rotate(-90)" x="-20" y="-42" width="40" height="85" style="color:#eceef0"></use>
+<use href="#car" transform="translate(330 302) rotate(90)" x="-20" y="-42" width="40" height="85" style="color:#2f5d9e"></use>
+<use href="#car" transform="translate(1290 302) rotate(90)" x="-20" y="-42" width="40" height="85" style="color:#24272b"></use>
+
+<!-- island between road and lot -->
+<rect x="0" y="326" width="1920" height="44" fill="#9fb383"></rect>
+<rect x="0" y="326" width="1920" height="3" fill="#c9c6bc"></rect>
+<rect x="0" y="367" width="1920" height="3" fill="#c9c6bc"></rect>
+<rect x="800" y="326" width="70" height="44" fill="url(#paving)"></rect>
+
+<!-- lot asphalt -->
+<rect x="70" y="370" width="1460" height="590" fill="url(#grain)"></rect>
+<rect x="75" y="326" width="80" height="44" fill="url(#grain)"></rect>
+<rect x="1445" y="326" width="80" height="44" fill="url(#grain)"></rect>
+<rect x="70" y="956" width="1460" height="4" fill="#c9c6bc"></rect>
+
+<!-- barriers -->
+<rect x="78" y="344" width="74" height="4" fill="#d43a2f"></rect>
+<rect x="72" y="340" width="10" height="12" fill="#e9ebe6"></rect>
+<rect x="1448" y="344" width="74" height="4" fill="#d43a2f"></rect>
+<rect x="1518" y="340" width="10" height="12" fill="#e9ebe6"></rect>
+<g font-family="Barlow Condensed" font-weight="700" font-size="13" fill="#2b3036" text-anchor="middle">
+<rect x="160" y="331" width="54" height="22" rx="3" fill="#f3f1ea"></rect>
+<text x="187" y="347">IEȘIRE</text>
+<rect x="1384" y="331" width="54" height="22" rx="3" fill="#f3f1ea"></rect>
+<text x="1411" y="347">INTRARE</text>
+</g>
+
+<!-- rental kiosk on island -->
+<rect x="254" y="333" width="150" height="32" fill="#000" opacity="0.2"></rect>
+<rect x="250" y="330" width="150" height="32" fill="#f3f1ea"></rect>
+<rect x="250" y="330" width="150" height="8" fill="#E8772E"></rect>
+<text x="325" y="357" text-anchor="middle" font-family="Barlow Condensed" font-weight="800" font-size="15" letter-spacing="1.5" fill="#2b3036">RENT A CAR · AUTONOM</text>
+<use href="#tree" x="460" y="328" width="34" height="34"></use>
+<use href="#tree" x="1000" y="328" width="34" height="34"></use>
+<use href="#tree" x="1170" y="328" width="34" height="34"></use>
+<use href="#tree" x="1320" y="328" width="34" height="34"></use>
+
+<!-- EV chargers on the island -->
+<g>
+<rect x="629" y="346" width="22" height="20" rx="3" fill="#1e6b3c"></rect>
+<rect x="633" y="350" width="14" height="6" rx="1" fill="#b8f0c9"></rect>
+<rect x="693" y="346" width="22" height="20" rx="3" fill="#1e6b3c"></rect>
+<rect x="697" y="350" width="14" height="6" rx="1" fill="#b8f0c9"></rect>
+</g>
+
+<!-- pedestrian sidewalk right of Autonom (through row A, crosswalk, along double row) -->
+<rect x="800" y="370" width="70" height="130" fill="url(#paving)"></rect>
+<rect x="800" y="620" width="70" height="240" fill="url(#paving)"></rect>
+<rect x="800" y="370" width="3" height="130" fill="#c9c6bc"></rect>
+<rect x="867" y="370" width="3" height="130" fill="#c9c6bc"></rect>
+<rect x="800" y="620" width="3" height="240" fill="#c9c6bc"></rect>
+<rect x="867" y="620" width="3" height="240" fill="#c9c6bc"></rect>
+<g fill="#e9ebe6">
+<rect x="806" y="508" width="58" height="9"></rect>
+<rect x="806" y="526" width="58" height="9"></rect>
+<rect x="806" y="544" width="58" height="9"></rect>
+<rect x="806" y="562" width="58" height="9"></rect>
+<rect x="806" y="580" width="58" height="9"></rect>
+<rect x="806" y="598" width="58" height="9"></rect>
+</g>
+<text transform="translate(835 740) rotate(-90)" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="14" letter-spacing="4" fill="#8a8373">TROTUAR</text>
+
+<!-- green island between sidewalk and right double row -->
+<rect x="870" y="620" width="194" height="240" fill="#9fb383"></rect>
+<rect x="870" y="620" width="194" height="240" fill="none" stroke="#c9c6bc" stroke-width="3"></rect>
+<use href="#tree" x="900" y="650" width="46" height="46"></use>
+<use href="#tree" x="990" y="700" width="42" height="42"></use>
+<use href="#tree" x="910" y="780" width="44" height="44"></use>
+<use href="#tree" x="1000" y="800" width="38" height="38"></use>
+
+<!-- row A (top) -->
+<rect x="160" y="380" width="640" height="120" fill="url(#stallA)"></rect>
+<rect x="870" y="380" width="576" height="120" fill="url(#stallA2)"></rect>
+<rect x="1443" y="380" width="3" height="120" fill="#e9ebe6"></rect>
+<!-- EV stalls opposite Autonom -->
+<rect x="611" y="380" width="125" height="120" fill="#2a9d55" opacity="0.35"></rect>
+<rect x="608" y="380" width="3.5" height="120" fill="#5fd38a"></rect>
+<rect x="672" y="380" width="3.5" height="120" fill="#5fd38a"></rect>
+<rect x="736" y="380" width="3.5" height="120" fill="#5fd38a"></rect>
+<path d="M710 410 l-18 32 h13 l-7 28 l22 -38 h-13 l8 -22 z" fill="#e9ebe6"></path>
+<g font-family="Barlow Condensed" font-weight="800" font-size="16" letter-spacing="2" fill="#e9ebe6" text-anchor="middle">
+<text x="704" y="492">EV</text>
+<text x="640" y="492">EV</text>
+</g>
+<path d="M640 366 C 640 378, 648 382, 652 392" fill="none" stroke="#1c2630" stroke-width="3"></path>
+
+<!-- rows B + C: rent a car double row, left (10 stalls each) -->
+<rect x="160" y="620" width="640" height="240" fill="#E8772E" opacity="0.2"></rect>
+<rect x="480" y="620" width="320" height="120" fill="url(#hatch)"></rect>
+<rect x="160" y="620" width="640" height="240" fill="url(#stallR)"></rect>
+<g fill="#E8772E">
+<rect x="160" y="618" width="640" height="3.5"></rect>
+<rect x="160" y="738" width="640" height="3.5"></rect>
+<rect x="160" y="858" width="640" height="3.5"></rect>
+</g>
+<rect x="482" y="622" width="316" height="116" fill="none" stroke="#2E9C8F" stroke-width="4"></rect>
+<g font-family="Barlow Condensed" font-weight="800" font-size="18" letter-spacing="3" fill="#f3f1ea" text-anchor="middle">
+<text transform="translate(512 680) rotate(-90)" dy="6">AUTONOM</text>
+<text transform="translate(576 680) rotate(-90)" dy="6">AUTONOM</text>
+<text transform="translate(640 680) rotate(-90)" dy="6">AUTONOM</text>
+<text transform="translate(704 680) rotate(-90)" dy="6">AUTONOM</text>
+<text transform="translate(768 680) rotate(-90)" dy="6">AUTONOM</text>
+</g>
+
+<!-- rows B + C: general double row, right -->
+<rect x="1064" y="620" width="384" height="240" fill="url(#stallG)"></rect>
+<rect x="1445" y="620" width="3" height="240" fill="#e9ebe6"></rect>
+<rect x="1064" y="738" width="384" height="3" fill="#e9ebe6"></rect>
+
+<!-- aisle paint -->
+<g font-family="Barlow Condensed" font-weight="800" text-anchor="middle">
+<text x="320" y="580" font-size="34" letter-spacing="6" fill="#E8772E">RENT A CAR</text>
+<text x="640" y="606" font-size="28" letter-spacing="6" fill="#2E9C8F">AUTONOM</text>
+<text x="480" y="922" font-size="40" letter-spacing="8" fill="#E8772E">RENT A CAR</text>
+</g>
+<g font-family="Barlow Condensed" font-weight="800" fill="#e9ebe6" opacity="0.85" text-anchor="middle" font-size="40">
+<text x="1160" y="574">P</text>
+<text x="1256" y="924">P</text>
+</g>
+<g fill="#e9ebe6" opacity="0.8">
+<path d="M960 556 h60 v-10 l22 16 -22 16 v-10 h-60 z"></path>
+<path d="M1300 556 h60 v-10 l22 16 -22 16 v-10 h-60 z"></path>
+<path d="M1440 906 h-60 v-10 l-22 16 22 16 v-10 h60 z"></path>
+<path d="M1020 906 h-60 v-10 l-22 16 22 16 v-10 h60 z"></path>
+</g>
+<g font-family="Barlow Condensed" font-weight="700" font-size="14" text-anchor="middle" fill="#E8772E">
+<text x="192" y="612">R1</text><text x="256" y="612">R2</text><text x="320" y="612">R3</text><text x="384" y="612">R4</text><text x="448" y="612">R5</text>
+<text x="192" y="878">R6</text><text x="256" y="878">R7</text><text x="320" y="878">R8</text><text x="384" y="878">R9</text><text x="448" y="878">R10</text><text x="512" y="878">R11</text><text x="576" y="878">R12</text><text x="640" y="878">R13</text><text x="704" y="878">R14</text><text x="768" y="878">R15</text>
+</g>
+<g font-family="Barlow Condensed" font-weight="700" font-size="14" text-anchor="middle" fill="#2E9C8F">
+<text x="512" y="612">A1</text><text x="576" y="612">A2</text><text x="640" y="612">A3</text><text x="704" y="612">A4</text><text x="768" y="612">A5</text>
+</g>
+
+<!-- row A cars (nose up) -->
+<use href="#car" x="169" y="391" width="46" height="98" style="color:#b8382f"></use>
+<use href="#car" x="233" y="391" width="46" height="98" style="color:#b9bec4"></use>
+<use href="#car" x="361" y="391" width="46" height="98" style="color:#24272b"></use>
+<use href="#car" x="425" y="391" width="46" height="98" style="color:#2f5d9e"></use>
+<use href="#car" x="553" y="391" width="46" height="98" style="color:#c9b48a"></use>
+<use href="#car" x="617" y="391" width="46" height="98" style="color:#eceef0"></use>
+<use href="#car" x="745" y="391" width="46" height="98" style="color:#5a6068"></use>
+<use href="#car" x="879" y="391" width="46" height="98" style="color:#3d6b4f"></use>
+<use href="#car" x="1007" y="391" width="46" height="98" style="color:#eceef0"></use>
+<use href="#car" x="1071" y="391" width="46" height="98" style="color:#24272b"></use>
+<use href="#car" x="1199" y="391" width="46" height="98" style="color:#b9bec4"></use>
+<use href="#car" x="1327" y="391" width="46" height="98" style="color:#8a2e3b"></use>
+<use href="#car" x="1391" y="391" width="46" height="98" style="color:#eceef0"></use>
+<!-- rental row B R1–R5 (nose down) -->
+<use href="#carD" x="169" y="631" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#carD" x="233" y="631" width="46" height="98" style="color:#c4c9ce"></use>
+<use href="#carD" x="297" y="631" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#carD" x="361" y="631" width="46" height="98" style="color:#4b5157"></use>
+<use href="#carD" x="425" y="631" width="46" height="98" style="color:#f2f3f4"></use>
+<!-- rental row C R6–R15 (nose up) -->
+<use href="#car" x="169" y="751" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#car" x="233" y="751" width="46" height="98" style="color:#4b5157"></use>
+<use href="#car" x="297" y="751" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#car" x="361" y="751" width="46" height="98" style="color:#c4c9ce"></use>
+<use href="#car" x="425" y="751" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#car" x="489" y="751" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#car" x="553" y="751" width="46" height="98" style="color:#34587f"></use>
+<use href="#car" x="617" y="751" width="46" height="98" style="color:#c4c9ce"></use>
+<use href="#car" x="681" y="751" width="46" height="98" style="color:#f2f3f4"></use>
+<use href="#car" x="745" y="751" width="46" height="98" style="color:#4b5157"></use>
+<!-- general right double row -->
+<use href="#carD" x="1073" y="631" width="46" height="98" style="color:#eceef0"></use>
+<use href="#carD" x="1201" y="631" width="46" height="98" style="color:#2f5d9e"></use>
+<use href="#carD" x="1265" y="631" width="46" height="98" style="color:#b9bec4"></use>
+<use href="#carD" x="1393" y="631" width="46" height="98" style="color:#b8382f"></use>
+<use href="#car" x="1137" y="751" width="46" height="98" style="color:#24272b"></use>
+<use href="#car" x="1201" y="751" width="46" height="98" style="color:#eceef0"></use>
+<use href="#car" x="1329" y="751" width="46" height="98" style="color:#c9b48a"></use>
+<!-- moving car -->
+<use href="#car" transform="translate(1180 910) rotate(-90)" x="-23" y="-49" width="46" height="98" style="color:#e2b12f"></use>
+
+<!-- trees on surrounding grass -->
+<use href="#tree" x="1550" y="420" width="48" height="48"></use>
+<use href="#tree" x="1560" y="620" width="44" height="44"></use>
+<use href="#tree" x="1550" y="820" width="48" height="48"></use>
+<use href="#tree" x="1680" y="500" width="52" height="52"></use>
+<use href="#tree" x="1800" y="600" width="46" height="46"></use>
+<use href="#tree" x="1700" y="740" width="50" height="50"></use>
+<use href="#tree" x="1830" y="860" width="48" height="48"></use>
+<use href="#tree" x="1640" y="960" width="44" height="44"></use>
+<use href="#tree" x="10" y="480" width="44" height="44"></use>
+<use href="#tree" x="10" y="720" width="44" height="44"></use>
+<use href="#tree" x="800" y="980" width="44" height="44"></use>
+<use href="#tree" x="960" y="990" width="40" height="40"></use>
+<use href="#tree" x="1120" y="980" width="46" height="46"></use>
+<use href="#tree" x="1290" y="990" width="40" height="40"></use>
+<use href="#tree" x="1440" y="980" width="46" height="46"></use>
+</svg>
+<div id="overlay"></div>
+
+<section id="panel" aria-label="Locuri Autonom">
+  <div style="display:flex; justify-content:space-between; align-items:baseline">
+    <h2>Locuri Autonom</h2>
+    <span id="free" style="font-size:12px; color:#4a4f55"></span>
+  </div>
+  <form id="addForm" style="display:flex; flex-direction:column; gap:8px; margin:0">
+    <label for="plate" style="font-size:12px; color:#4a4f55">Număr de înmatriculare</label>
+    <div style="display:flex; gap:8px">
+      <input id="plate" type="text" placeholder="BH 12 ABC" autocomplete="off">
+      <button id="addBtn" type="submit">Adaugă</button>
+    </div>
+    <label for="rfr" style="display:flex; align-items:center; gap:8px; cursor:pointer">
+      <input id="rfr" type="checkbox" checked style="width:16px; height:16px; margin:0">
+      Mașina este RFR (gata de închiriere)
+    </label>
+    <label for="ret" style="display:flex; align-items:center; gap:8px; cursor:pointer">
+      <input id="ret" type="checkbox" style="width:16px; height:16px; margin:0">
+      Doar în tabel – trebuie să se întoarcă
+    </label>
+    <div id="msg" style="font-size:12px; color:#a3401a; min-height:0"></div>
+  </form>
+  <div role="table" aria-label="Locuri Autonom">
+    <div role="row" class="row head"><span>LOC</span><span>NR. ÎNMATRICULARE</span><span>RFR</span><span></span></div>
+    <div id="rows"></div>
+  </div>
+  <div style="font-size:11px; color:#4a4f55; line-height:1.35"><span style="color:#1f5fae; font-weight:600">Albastru</span> = mașină care trebuie să se întoarcă; locul îi e păstrat. Apasă REVINE când sosește.</div>
+</section>
+
+<div id="legend">
+  <div style="display:flex; flex-direction:column; gap:2px; flex:1">
+    <div class="cond" style="font-weight:800; font-size:26px; letter-spacing:.5px; line-height:1.05">Aeroportul Internațional Oradea</div>
+    <div style="font-size:14px; color:#4a4f55">Parcare publică · zona rent a car</div>
+  </div>
+  <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:18px; row-gap:6px; font-size:13px; color:#2b3036">
+    <div style="display:flex; align-items:center; gap:8px"><span class="sw" style="background:#4b5056"></span>Parcare publică</div>
+    <div style="display:flex; align-items:center; gap:8px"><span class="sw" style="background:#E8772E"></span>Rent a car (R1–R15)</div>
+    <div style="display:flex; align-items:center; gap:8px"><span class="sw" style="background:#2E9C8F"></span>Autonom (A1–A5)</div>
+    <div style="display:flex; align-items:center; gap:8px"><span class="sw" style="background:#2a9d55"></span>Încărcare electrice</div>
+  </div>
+</div>
+</div>
+</div>
+
+<script>
+(function () {
+  var KEY = 'parcare-oradea-autonom-v1';
+  var XS = [489, 553, 617, 681, 745];
+  var COLORS = ['#f2f3f4', '#c4c9ce', '#f2f3f4', '#4b5157', '#f2f3f4'];
+  var DEFAULT = [{ plate: 'B127RXN', rfr: true }, { plate: 'B452ATL', rfr: false }, { plate: 'B302TOM', ret: true }, null, null];
+  var slots, sel = -1;
+
+  function load() {
+    try { var v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v) && v.length === 5) return v; } catch (e) {}
+    return DEFAULT.slice();
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(slots)); } catch (e) {} }
+  function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function carSvg(color, dot) {
+    return '<svg width="46" height="98" viewBox="0 0 34 72" aria-hidden="true" style="display:block; overflow:visible; color:' + color + '">' +
+      '<g transform="rotate(180 17 36)">' +
+      '<rect x="3" y="4" width="32" height="70" rx="9" fill="#000" opacity="0.28"/>' +
+      '<rect x="1" y="1" width="32" height="70" rx="9" fill="currentColor" stroke="#000" stroke-opacity="0.25"/>' +
+      '<path d="M5 26 Q17 14 29 26 L27 31 Q17 27 7 31 Z" fill="#1c2630" opacity="0.88"/>' +
+      '<path d="M7 52 Q17 55 27 52 L28 59 Q17 63 6 59 Z" fill="#1c2630" opacity="0.85"/>' +
+      '<rect x="4" y="2.5" width="6" height="2.5" rx="1.2" fill="#fff6d8"/><rect x="24" y="2.5" width="6" height="2.5" rx="1.2" fill="#fff6d8"/>' +
+      '<rect x="4" y="67.5" width="6" height="2.2" rx="1" fill="#c0262d"/><rect x="24" y="67.5" width="6" height="2.2" rx="1" fill="#c0262d"/>' +
+      '</g><circle cx="17" cy="38" r="6" fill="' + dot + '" stroke="#fff" stroke-width="1.6"/></svg>';
+  }
+
+  function render() {
+    var o = '';
+    slots.forEach(function (c, i) {
+      if (!c) return;
+      if (c.ret) { o += '<div class="reserved" style="left:' + (XS[i] - 5) + 'px"></div>'; return; }
+      o += '<button type="button" class="car" data-car="' + i + '" style="left:' + XS[i] + 'px" aria-label="Mașina ' + esc(c.plate) + '">' +
+        carSvg(COLORS[i], c.rfr ? '#2a9d55' : '#e0702a') + '</button>';
+    });
+    var cur = sel >= 0 ? slots[sel] : null;
+    if (cur && !cur.ret) {
+      o += '<div class="pop" role="dialog" aria-label="Detalii mașină" style="left:' + (XS[sel] + 23 - 95) + 'px">' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; gap:8px"><span style="font-size:11px; color:#555b61; letter-spacing:.5px">LOC A' + (sel + 1) + ' · AUTONOM</span>' +
+        '<button type="button" class="x" data-close="1" aria-label="Închide">×</button></div>' +
+        '<div class="cond" style="font-weight:800; font-size:24px; letter-spacing:1px; line-height:1">' + esc(cur.plate) + '</div>' +
+        '<div style="display:flex; align-items:center; gap:6px"><span class="pill" style="background:' + (cur.rfr ? '#1f7a43' : '#b5541a') + '">RFR: ' + (cur.rfr ? 'DA' : 'NU') + '</span>' +
+        '<span style="font-size:12px; color:#4a4f55">' + (cur.rfr ? 'gata de închiriere' : 'nu e pregătită') + '</span></div></div>';
+    }
+    document.getElementById('overlay').innerHTML = o;
+
+    var r = '';
+    slots.forEach(function (c, i) {
+      var plateColor = !c ? '#8a8f94' : (c.ret ? '#1f5fae' : '#1d2126');
+      r += '<div role="row" class="row"><span style="font-weight:600; color:#1f6f66">A' + (i + 1) + '</span>' +
+        '<span class="cond" style="font-size:16px; letter-spacing:.5px; color:' + plateColor + '">' + (c ? esc(c.plate) : 'liber') + '</span><span>';
+      if (c) {
+        var bg = c.ret ? '#1f5fae' : (c.rfr ? '#1f7a43' : '#b5541a');
+        var lbl = c.ret ? 'REVINE' : (c.rfr ? 'DA' : 'NU');
+        var tip = c.ret ? 'Marchează sosirea pentru ' : 'Schimbă RFR pentru ';
+        r += '<button type="button" class="rfrBtn" data-toggle="' + i + '" style="background:' + bg + '" aria-label="' + tip + esc(c.plate) + '">' + lbl + '</button>';
+      }
+      r += '</span><span style="text-align:right">';
+      if (c) r += '<button type="button" class="x" data-remove="' + i + '" aria-label="Scoate ' + esc(c.plate) + '">×</button>';
+      r += '</span></div>';
+    });
+    document.getElementById('rows').innerHTML = r;
+    var free = slots.filter(function (c) { return !c; }).length;
+    document.getElementById('free').textContent = free + ' din 5 libere';
+  }
+
+  function msg(t) { document.getElementById('msg').textContent = t || ''; }
+
+  document.getElementById('addForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('plate');
+    var p = input.value.trim().toUpperCase().replace(/\s+/g, ' ');
+    if (!p) return msg('Introdu un număr de înmatriculare.');
+    if (slots.some(function (c) { return c && c.plate === p; })) return msg(p + ' este deja în listă.');
+    var i = slots.indexOf(null);
+    if (i < 0) return msg('Toate cele 5 locuri Autonom sunt ocupate.');
+    slots[i] = document.getElementById('ret').checked ? { plate: p, ret: true } : { plate: p, rfr: document.getElementById('rfr').checked };
+    input.value = ''; msg(''); save(); render(); input.focus();
+  });
+
+  document.getElementById('stage').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.car != null) { var i = +b.dataset.car; sel = sel === i ? -1 : i; render(); }
+    else if (b.dataset.close) { sel = -1; render(); }
+    else if (b.dataset.toggle != null) {
+      var t = +b.dataset.toggle, c = slots[t];
+      slots[t] = c.ret ? { plate: c.plate, rfr: false } : { plate: c.plate, rfr: !c.rfr };
+      save(); render();
+    } else if (b.dataset.remove != null) {
+      var k = +b.dataset.remove; slots[k] = null; if (sel === k) sel = -1; save(); render();
+    }
+  });
+
+  function fit() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    s = Math.max(s, 0.45);
+    document.getElementById('stage').style.transform = 'scale(' + s + ')';
+    var f = document.getElementById('fit');
+    f.style.width = (1920 * s) + 'px'; f.style.height = (1080 * s) + 'px';
+  }
+  window.addEventListener('resize', fit);
+
+  slots = load(); fit(); render();
+})();
+</script>
+</body>
+</html>
